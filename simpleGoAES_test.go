@@ -1,11 +1,10 @@
 package simpleGoAES
 
 import (
+	"github.com/stretchr/testify/assert"
 	"math/rand"
 	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func init() {
@@ -86,11 +85,11 @@ func TestSimpleGoAES(t *testing.T) {
 func EncTest(t *testing.T, keyToTest string, stringToTest string) {
 	t.Logf("Key used to encrypt = '%s'.", keyToTest)
 	t.Logf("String to encrypt = '%s'.", stringToTest)
-	encryptedString, err := EncryptStringToBase64EncodedString(keyToTest, stringToTest)
+	encryptedString, err := Encrypt(keyToTest, stringToTest)
 	if err != nil {
 		t.Fatalf("Could not encrypt the string: %s", err.Error())
 	}
-	decryptedString, err := DecryptBase64StringToString(keyToTest, encryptedString)
+	decryptedString, err := Decrypt(keyToTest, encryptedString)
 	if err != nil {
 		t.Fatalf("Could not decrypt the string: %s", err.Error())
 	}

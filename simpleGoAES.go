@@ -10,15 +10,13 @@ import (
 	"log"
 )
 
-// We learned quite a bit from this post http://stackoverflow.com/questions/18817336/golang-encrypting-a-string-with-aes-and-base64 (Intermernet's answer)
-
 //IsEncryptionOn : A simple system for turning on and off encryption in case you need to see the plain text results in a database for testing (default is On)
 var IsEncryptionOn = true
 
-//EncryptStringToBase64EncodedString : AES256 encryption function to work with strings
-//returns a base64 encoded string
+//Encrypt : AES256 encryption function to work with strings
+//returns a base64 encoded string safe to write/save most anywhere
 //(depends on EncryptByteArray)
-func EncryptStringToBase64EncodedString(key, stringToEncrypt string) (base64String string, err error) {
+func Encrypt(key, stringToEncrypt string) (base64String string, err error) {
 	if IsEncryptionOn == false {
 		return stringToEncrypt, nil
 	}
@@ -29,9 +27,9 @@ func EncryptStringToBase64EncodedString(key, stringToEncrypt string) (base64Stri
 	return encryptedString, err
 }
 
-//DecryptBase64StringToString : AES256 decryption function to work with strings
+//Decrypt : AES256 decryption function to work with strings
 //(depends on DecryptByteArray)
-func DecryptBase64StringToString(key, base64StringToDecrypt string) (decodedString string, err error) {
+func Decrypt(key, base64StringToDecrypt string) (decodedString string, err error) {
 	if IsEncryptionOn == false {
 		return base64StringToDecrypt, nil
 	}
