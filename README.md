@@ -2,33 +2,33 @@
 
 forked from https://github.com/sezzle/simpleGoAES
 
-A simple golang library to encrypt and decrypt strings or byte arrays using AES.
+An easy to use golang library to encrypt and decrypt strings (or byte arrays) using AES.
 My goal with this fork was to make it as simple as possible to use.
 
-All you need now is a password string __(pwd)__, and a string you want to encrypt __(encryptThis)__
+All you need now is a password string `pwd`, and a string you want to encrypt `encryptThis`
 
 
 Example usage:
+```go
+package main
 
-    package main
+import (
+	"fmt"
+	"github.com/pmopmo/simpleGoAES"
+)
 
-    import (
-        "fmt"
-        "github.com/pmopmo/simpleGoAES"
-    )
+func main() {
 
-    func main() {
+	pwd := "My secret password"
+	encryptThis := "Simple Go AES encrypt/decrypt"
 
-	    pwd := "My secret password"
-	    encryptThis := "Simple Go AES encrypt/decrypt"
-
-	    cipher, err := simpleGoAES.Encrypt(pwd, encryptThis)
-
-	    fmt.Println("res: ", cipher, " error:", err)
-	    cleartext, err := simpleGoAES.Decrypt("My secret password", cipher)
-	    fmt.Println("res: ", cleartext, " error:", err)
-    }
-
+	cipher, err := simpleGoAES.Encrypt(pwd, encryptThis)
+	fmt.Println("cipher text: ", cipher, " error:", err)
+	
+	cleartext, err := simpleGoAES.Decrypt("My secret password", cipher)
+	fmt.Println("cleartext: ", cleartext, " error:", err)
+}
+```
 <!-- for some reason this pulls an old release [Try it](https://play.golang.org/p/HpaS1-Mpq7G) -->
 
 ----
