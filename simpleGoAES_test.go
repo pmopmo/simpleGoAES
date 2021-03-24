@@ -71,10 +71,19 @@ func TestSimpleGoAES(t *testing.T) {
 	stringToEncrypt = "Encryption turned on test."
 	EncTest(t, key, stringToEncrypt)
 
-	//Test a 1000 sets of keys and strings to encrypt/decrypt
-	for index := 0; index < 10000; index++ {
+	//Test a 100 sets of keys and strings to encrypt/decrypt
+	for index := 0; index < 100; index++ {
 		//randomize the key
 		randKey := RandString(keyLength)
+		randStringLength := rand.Intn(100)
+		stringToEncrypt := RandString(randStringLength)
+		EncTest(t, randKey, stringToEncrypt)
+	}
+
+	//Test a 100 sets of keys and strings to encrypt/decrypt
+	for index := 0; index < 100; index++ {
+		//randomize the key
+		randKey := RandString(index + 1)
 		randStringLength := rand.Intn(100)
 		stringToEncrypt := RandString(randStringLength)
 		EncTest(t, randKey, stringToEncrypt)
