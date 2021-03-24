@@ -3,7 +3,7 @@ package simpleGoAES
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/md5"
+	"crypto/md5" // I use md5 on the password as an stupid way to ensure that AES gets the 32 char password it needs
 	"crypto/rand"
 	"encoding/base64"
 	"encoding/hex"
