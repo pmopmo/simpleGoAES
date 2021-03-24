@@ -3,8 +3,10 @@ package simpleGoAES
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/md5"
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/hex"
 	"errors"
 	"io"
 	"log"
@@ -20,6 +22,7 @@ func Encrypt(key, stringToEncrypt string) (base64String string, err error) {
 	if IsEncryptionOn == false {
 		return stringToEncrypt, nil
 	}
+	key = md5TheKey(key)
 	keyBytes := []byte(key)
 	stringToEncryptBytes := []byte(stringToEncrypt)
 	encryptedByteArray, err := EncryptByteArray(keyBytes, stringToEncryptBytes)
@@ -33,6 +36,7 @@ func Decrypt(key, base64StringToDecrypt string) (decodedString string, err error
 	if IsEncryptionOn == false {
 		return base64StringToDecrypt, nil
 	}
+	key = md5TheKey(key)
 	keyBytes := []byte(key)
 	stringToDecryptBytes, err := base64.StdEncoding.DecodeString(base64StringToDecrypt)
 	if err != nil {
@@ -45,6 +49,7 @@ func Decrypt(key, base64StringToDecrypt string) (decodedString string, err error
 }
 
 //EncryptByteArray : AES256 encryption function to work with byte arrays
+//This expects the key as an array with 32 bytes in it
 func EncryptByteArray(key, byteArrayToEncrypt []byte) ([]byte, error) {
 	if IsEncryptionOn {
 		block, err := aes.NewCipher(key)
@@ -65,6 +70,7 @@ func EncryptByteArray(key, byteArrayToEncrypt []byte) ([]byte, error) {
 }
 
 //DecryptByteArray : AES256 encryption function to work with byte arrays
+//This expects the key as an array with 32 bytes in it
 func DecryptByteArray(key, byteArrayToDecrypt []byte) ([]byte, error) {
 	if IsEncryptionOn {
 		block, err := aes.NewCipher(key)
@@ -81,4 +87,11 @@ func DecryptByteArray(key, byteArrayToDecrypt []byte) ([]byte, error) {
 		return byteArrayToDecrypt, nil
 	}
 	return byteArrayToDecrypt, nil
+}
+
+// md5 on the passkey
+func md5TheKey(key string) string {
+	m := md5.New()
+	m.Write([]byte(key))
+	return hex.EncodeToString(m.Sum(nil))
 }
