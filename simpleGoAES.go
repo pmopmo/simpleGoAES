@@ -7,8 +7,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"io"
-
-	"github.com/golang/glog"
+	"log"
 )
 
 // We learned quite a bit from this post http://stackoverflow.com/questions/18817336/golang-encrypting-a-string-with-aes-and-base64 (Intermernet's answer)
@@ -39,11 +38,11 @@ func DecryptBase64StringToString(key, base64StringToDecrypt string) (decodedStri
 	keyBytes := []byte(key)
 	stringToDecryptBytes, err := base64.StdEncoding.DecodeString(base64StringToDecrypt)
 	if err != nil {
-		glog.Error(err)
+		log.Fatal(err)
 		return "", err
 	}
 	decryptedByteArray, err := DecryptByteArray(keyBytes, stringToDecryptBytes)
-	decryptedString := string(decryptedByteArray[:len(decryptedByteArray)])
+	decryptedString := string(decryptedByteArray[:])
 	return decryptedString, err
 }
 
@@ -60,7 +59,7 @@ func EncryptByteArray(key, byteArrayToEncrypt []byte) ([]byte, error) {
 			return nil, err
 		}
 		cfb := cipher.NewCFBEncrypter(block, iv)
-		cfb.XORKeyStream(ciphertext[aes.BlockSize:], []byte(byteArrayToEncrypt))
+		cfb.XORKeyStream(ciphertext[aes.BlockSize:], byteArrayToEncrypt)
 		return ciphertext, nil
 	}
 	// Encryption was off, just return the string

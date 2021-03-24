@@ -1,11 +1,9 @@
-# Simple Go AES
+# Simple Go AES encrypt/decrypt
 
-We built a simple golang library to encrypt and decrypt AES with strings or byte arrays, so we thought we'd share.
+forked from https://github.com/sezzle/simpleGoAES
 
-The library can work with byte arrays or strings, depending on your preference.
+A simple golang library to encrypt and decrypt strings or byte arrays using AES.
 
-We prefer strings because they are more interoperable with our database objects.
+Code licensed under an [MIT-style License](./LICENSE). 
 
-Please feel free to update and improve.
-
-Powered by Sezzle ©2016. Code licensed under an [MIT-style License](./LICENSE). Documentation licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
+Documentation licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
