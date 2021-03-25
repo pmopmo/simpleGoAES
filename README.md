@@ -29,7 +29,7 @@ func main() {
 	fmt.Println("cleartext: ", cleartext, " error:", err)
 }
 ```
-<!-- for some reason this pulls an old release [Try it](https://play.golang.org/p/HpaS1-Mpq7G) -->
+[Try it](https://play.golang.org/p/uSks8vC1M12)
 
 ----
 
